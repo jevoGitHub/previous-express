@@ -18,11 +18,18 @@ form {
 li {
     list-style-type: none;
     padding: 10px;
-}
-ul {
+  }
+  ul {
     margin-top: 30px;
     width: 30%;
     display: inline-block;
+}
+section {
+  height: 200px; /* set a fixed height for the container */
+  overflow-y: scroll; /* add a scrollbar when the content overflows */
+}
+section::-webkit-scrollbar {
+  display: none;
 }
 /*
 =======================================================
