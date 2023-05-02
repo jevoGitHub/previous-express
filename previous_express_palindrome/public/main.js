@@ -1,5 +1,5 @@
 document.querySelector('button').addEventListener('click', checkPalindrome)
-var trash = document.querySelector(".fa-trash");
+var trash = document.querySelectorAll(".fa-trash")
 
 function checkPalindrome(){
     let input = document.querySelector('input').value
@@ -24,18 +24,15 @@ function checkPalindrome(){
 } 
 
 Array.from(trash).forEach(function(element) {
-  console.log("works")
   element.addEventListener('click', function(){
-    const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
+      const palindromes = this.parentNode.parentNode.childNodes[1].innerText
     fetch('palindromes', {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          'name': name,
-          'msg': msg
+          'palindromes': palindromes
         })
       }).then(function (response) {
         window.location.reload()

@@ -72,10 +72,11 @@ app.get('/api', (req, res) => {
   })
 
   app.delete('/palindromes', (req, res) => {
-    db.collection('palindromes').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+    db.collection('palindromes').findOneAndDelete({palindrome: req.body.palindromes}, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Deleted!')
     })
+    res.redirect('/palindromes')
   })
 
 app.listen(7610, ()=>console.log("App Is Running on Port 7610"))
