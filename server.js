@@ -72,13 +72,17 @@ app.get('/api', (req, res) => {
   })
 
   app.delete('/palindromes', (req, res) => {
-    db.collection('palindromes').findOneAndDelete({palindrome: req.body.palindromes}, (err, result) => {
-      if (err) return res.send(500, err)
-      res.send('Deleted!')
-    })
-    res.redirect('/palindromes')
-  })
-
-app.listen(7610, ()=>console.log("App Is Running on Port 7610"))
-
+    const palindromeToDelete = req.body.palindrome;
+    console.log('Deleting palindrome:', palindromeToDelete);
+    db.collection('palindromes').findOneAndDelete({palindrome: palindromeToDelete}, (err, result) => {
+      if (err) {
+        console.log('Error deleting palindrome:', err);
+        return res.send(500, err);
+      }
+      res.send('Deleted!');
+    });
+    console.log('Palindrome Deleted:', result);
+  });
+  
+  app.listen(7610, ()=>console.log("App Is Running on Port 7610"))
 })

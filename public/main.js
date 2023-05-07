@@ -23,19 +23,41 @@ function checkPalindrome(){
     })
 } 
 
+// Array.from(trash).forEach(function(element) {
+//   element.addEventListener('click', function(){
+//     const palindromes = this.parentNode.parentNode.childNodes[1].innerText
+//     fetch('palindromes', {
+//       method: 'delete',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         'palindrome': palindromes
+//       })
+//     }).then(function (response) {
+//         window.location.reload()
+//       })
+//     });
+// });
+
 Array.from(trash).forEach(function(element) {
-  element.addEventListener('click', function(){
-      const palindromes = this.parentNode.parentNode.childNodes[1].innerText
-    fetch('palindromes', {
-        method: 'delete',
+  element.addEventListener('click', async function() {
+    const palindromeToDelete = this.parentNode.parentNode.childNodes[1].innerText;
+    console.log('Deleting palindrome:', palindromeToDelete);
+    try {
+      const response = await fetch('/palindromes', {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          'palindromes': palindromes
+          'palindrome': palindromeToDelete
         })
-      }).then(function (response) {
-        window.location.reload()
-      })
-    });
+      });
+      console.log('Palindrome deleted:', await response.text());
+      window.location.reload();
+    } catch (err) {
+      console.log(`Error deleting palindrome: ${err}`);
+    }
+  });
 });
